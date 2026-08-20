@@ -1,0 +1,5 @@
+{
+  "main": "hexcollab.js",
+  "output": "hexcollab.blob",
+  "disableExperimentalSEAWarning": true
+}

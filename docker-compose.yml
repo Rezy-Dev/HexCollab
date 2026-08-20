@@ -1,0 +1,35 @@
+services:
+  documentserver:
+    image: onlyoffice/documentserver:latest
+    container_name: hexcollab-documentserver
+    restart: unless-stopped
+    ports:
+      - "${DOCSERVER_PORT:-6969}:80"
+    environment:
+      - JWT_ENABLED=true
+      - JWT_SECRET=${JWT_SECRET:?set JWT_SECRET in .env}
+      - JWT_HEADER=Authorization
+      - JWT_IN_BODY=true
+    volumes:
+      - documentserver_data:/var/www/onlyoffice/Data
+      - documentserver_log:/var/log/onlyoffice
+      - documentserver_cache:/var/lib/onlyoffice/documentserver/App_Data/cache/files
+      - documentserver_forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/forgotten
+      - documentserver_fonts:/usr/share/fonts/truetype/custom
+      - documentserver_db:/var/lib/postgresql
+      - ./documentserver-local.json:/etc/onlyoffice/documentserver/local.json:ro
+    shm_size: "1gb"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthcheck"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+volumes:
+  documentserver_data:
+  documentserver_log:
+  documentserver_cache:
+  documentserver_forgotten:
+  documentserver_fonts:
+  documentserver_db:

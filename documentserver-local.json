@@ -1,0 +1,22 @@
+{
+  "services": {
+    "CoAuthoring": {
+      "server": {
+        "limits_tempfile_upload": 1073741824,
+        "limits_image_size": 1073741824,
+        "client_max_body_size": 1073741824,
+        "maxfilesize": 1073741824
+      }
+    }
+  },
+  "FileConverter": {
+    "converter": {
+      "maxDownloadBytes": 1073741824,
+      "inputLimits": [
+        { "type": "docx;dotx;docm;dotm", "zip": { "uncompressed": "1000MB", "template": "*.xml" } },
+        { "type": "xlsx;xltx;xlsm;xltm", "zip": { "uncompressed": "1000MB", "template": "*.xml" } },
+        { "type": "pptx;ppsx;potx;pptm;ppsm;potm", "zip": { "uncompressed": "1000MB", "template": "*.xml" } }
+      ]
+    }
+  }
+}
